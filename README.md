@@ -14,3 +14,9 @@ Copy the root `web`and `schemas` folders over those in your build directory befo
 
 Copy `web/src/main/xslt` into `/var/lib/tomcat8/webapps/geonetwork` and `schemas/iso19139/src/main/iso19139` into `[data_dir]/config/schema_plugins` and restart your web service.
 
+## TODO
+
+* Create reduced editor view in the ISO19139 schema plugin
+* Create templates
+* Produce guidance on harvesting in data.gov.uk (some metadata comes from settings in data.gov.uk rather than the records themselves)
+
