@@ -433,10 +433,40 @@
       "The language of the dataset."
       "This overrides the value of the catalog language in case of conflict"
     -->
-    <xsl:for-each select="gmd:language/gmd:LanguageCode/@codeListValue">
-      <dct:language>
-        <xsl:value-of select="."/>
-      </dct:language>
+    <xsl:for-each select="/gmd:MD_Metadata/gmd:language/gco:CharacterString">
+      <xsl:variable name="doclang" select="."/>
+      <xsl:choose>
+        <xsl:when test="$doclang='eng'">
+          <dct:language>
+            <xsl:text>en</xsl:text>
+          </dct:language>
+        </xsl:when>
+        <xsl:when test="$doclang='cym'">
+          <dct:language>
+            <xsl:text>cy</xsl:text>
+          </dct:language>
+        </xsl:when>
+        <xsl:when test="$doclang='gla'">
+          <dct:language>
+            <xsl:text>gd</xsl:text>
+          </dct:language>
+        </xsl:when>
+        <xsl:when test="$doclang='gle'">
+          <dct:language>
+            <xsl:text>ga</xsl:text>
+          </dct:language>
+        </xsl:when>
+        <xsl:when test="$doclang='cor'">
+          <dct:language>
+            <xsl:text>kw</xsl:text>
+          </dct:language>
+        </xsl:when>
+        <xsl:otherwise>
+          <dct:language>
+            <xsl:text>en</xsl:text>
+          </dct:language>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:for-each>
     <!-- xpath: gmd:identificationInfo/*/gmd:language/gmd:LanguageCode/@codeListValue -->
 
