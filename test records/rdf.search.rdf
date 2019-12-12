@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <dcat:Dataset xmlns:dcat="http://www.w3.org/ns/dcat#"
+                 rdf:about="https://public.eametadata.com/geonetwork/srv/resources/datasets/17f1f7c2-0c92-4ec1-86ea-b4d67dbeb2cf">
+      <dct:identifier xmlns:dct="http://purl.org/dc/terms/">17f1f7c2-0c92-4ec1-86ea-b4d67dbeb2cf</dct:identifier>
+      <dct:title xmlns:dct="http://purl.org/dc/terms/">TEST: DEFRA ISO19139 sample record 2</dct:title>
+      <dct:description xmlns:dct="http://purl.org/dc/terms/">This is a test metadata record. It does not represent a live dataset and will be removed from the system when testing is complete.</dct:description>
+      <dcat:keyword>operating data</dcat:keyword>
+      <dcat:keyword>NonSpatial</dcat:keyword>
+      <dcat:theme rdf:resource="https://public.eametadata.com/geonetwork/srv/resources/registries/vocabularies/isoTopicCategory/concepts/environment"/>
+      <dct:temporal xmlns:dct="http://purl.org/dc/terms/">2005-05-15
+          /
+          </dct:temporal>
+      <dct:issued xmlns:dct="http://purl.org/dc/terms/"
+                  rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2016-04-01</dct:issued>
+      <dct:modified xmlns:dct="http://purl.org/dc/terms/"
+                    rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2016-04-01</dct:modified>
+      <dct:accrualPeriodicity xmlns:dct="http://purl.org/dc/terms/">notPlanned</dct:accrualPeriodicity>
+      <dct:license xmlns:dct="http://purl.org/dc/terms/">otherRestrictions</dct:license>
+      <dct:license xmlns:dct="http://purl.org/dc/terms/">Open Government Licence</dct:license>
+      <dct:publisher xmlns:dct="http://purl.org/dc/terms/">
+         <foaf:Organization xmlns:foaf="http://xmlns.com/foaf/0.1/"
+                            rdf:about="https://public.eametadata.com/geonetwork/srv/resources/organizations/Department%20for%20Environment%2C%20Food%20%26%20Rural%20Affairs">
+            <foaf:name>Department for Environment, Food &amp; Rural Affairs</foaf:name>
+            <foaf:member rdf:resource="https://public.eametadata.com/geonetwork/srv/resources/persons/open%40defra.gov.uk"/>
+         </foaf:Organization>
+         <foaf:Agent xmlns:foaf="http://xmlns.com/foaf/0.1/"
+                     rdf:about="https://public.eametadata.com/geonetwork/srv/resources/persons/open%40defra.gov.uk">
+            <foaf:name>Open Data Team</foaf:name>
+            <foaf:mbox rdf:resource="mailto:open@defra.gov.uk"/>
+         </foaf:Agent>
+      </dct:publisher>
+      <dcat:distribution rdf:about="https://environment.data.gov.uk">
+         <dcat:accessURL>https://environment.data.gov.uk</dcat:accessURL>
+         <dct:title xmlns:dct="http://purl.org/dc/terms/">Test 2</dct:title>
+         <dct:format xmlns:dct="http://purl.org/dc/terms/">
+            <dct:IMT>
+               <rdf:value>WWW:LINK-1.0-http--link</rdf:value>
+               <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Test 2</rdfs:label>
+            </dct:IMT>
+         </dct:format>
+      </dcat:distribution>
+      <dcat:dataQuality>This is a test record. It does not represent a live dataset and will be removed from the system when testing is complete.</dcat:dataQuality>
+   </dcat:Dataset>
+   <dcat:Dataset xmlns:dcat="http://www.w3.org/ns/dcat#"
+                 rdf:about="https://public.eametadata.com/geonetwork/srv/resources/datasets/17f1f7c2-0c92-4ec1-86ea-b4d67dbeb2cfada">
+      <dct:identifier xmlns:dct="http://purl.org/dc/terms/">17f1f7c2-0c92-4ec1-86ea-b4d67dbeb2cfada</dct:identifier>
+      <dct:title xmlns:dct="http://purl.org/dc/terms/">TEST METADATA: DEFRA ISO19139 sample record ver.1</dct:title>
+      <dct:description xmlns:dct="http://purl.org/dc/terms/">TEST ABSTRACT: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+This metadata record has been created to enable testing of new functionality. It does not represent a live dataset and will be removed from the system when testing is complete.</dct:description>
+      <dcat:keyword>operating data</dcat:keyword>
+      <dcat:keyword>NonSpatial</dcat:keyword>
+      <dcat:theme rdf:resource="https://public.eametadata.com/geonetwork/srv/resources/registries/vocabularies/isoTopicCategory/concepts/environment"/>
+      <dct:temporal xmlns:dct="http://purl.org/dc/terms/">2005-05-15
+          /
+          </dct:temporal>
+      <dct:issued xmlns:dct="http://purl.org/dc/terms/"
+                  rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2016-04-01</dct:issued>
+      <dct:modified xmlns:dct="http://purl.org/dc/terms/"
+                    rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2016-04-01</dct:modified>
+      <dct:accrualPeriodicity xmlns:dct="http://purl.org/dc/terms/">notPlanned</dct:accrualPeriodicity>
+      <dct:license xmlns:dct="http://purl.org/dc/terms/">http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/</dct:license>
+      <dct:publisher xmlns:dct="http://purl.org/dc/terms/">
+         <foaf:Organization xmlns:foaf="http://xmlns.com/foaf/0.1/"
+                            rdf:about="https://public.eametadata.com/geonetwork/srv/resources/organizations/Department%20for%20Environment%2C%20Food%20%26%20Rural%20Affairs">
+            <foaf:name>Department for Environment, Food &amp; Rural Affairs</foaf:name>
+            <foaf:member rdf:resource="https://public.eametadata.com/geonetwork/srv/resources/persons/open%40defra.gov.uk"/>
+         </foaf:Organization>
+         <foaf:Agent xmlns:foaf="http://xmlns.com/foaf/0.1/"
+                     rdf:about="https://public.eametadata.com/geonetwork/srv/resources/persons/open%40defra.gov.uk">
+            <foaf:name>Open Data Team</foaf:name>
+            <foaf:mbox rdf:resource="mailto:open@defra.gov.uk"/>
+         </foaf:Agent>
+      </dct:publisher>
+      <dcat:distribution rdf:about="https://support.environment.data.gov.uk/hc/en-gb">
+         <dcat:accessURL>https://support.environment.data.gov.uk/hc/en-gb</dcat:accessURL>
+         <dct:title xmlns:dct="http://purl.org/dc/terms/">Test</dct:title>
+         <dct:format xmlns:dct="http://purl.org/dc/terms/">
+            <dct:IMT>
+               <rdf:value>http</rdf:value>
+               <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Test</rdfs:label>
+            </dct:IMT>
+         </dct:format>
+      </dcat:distribution>
+      <dcat:dataQuality>TEST LINEAGE: This record has been created solely for the purpose of testing and does not represent a live dataset. It will be removed from the system when testing is complete.</dcat:dataQuality>
+   </dcat:Dataset>
+   <foaf:Organization xmlns:foaf="http://xmlns.com/foaf/0.1/"
+                      rdf:about="https://public.eametadata.com/geonetwork/srv/resources/organizations/Department%20for%20Environment%2C%20Food%20%26%20Rural%20Affairs">
+      <foaf:name>Department for Environment, Food &amp; Rural Affairs</foaf:name>
+      <foaf:member rdf:resource="https://public.eametadata.com/geonetwork/srv/resources/persons/open%40defra.gov.uk"/>
+   </foaf:Organization>
+   <foaf:Agent xmlns:foaf="http://xmlns.com/foaf/0.1/"
+               rdf:about="https://public.eametadata.com/geonetwork/srv/resources/persons/open%40defra.gov.uk">
+      <foaf:name>Open Data Team</foaf:name>
+      <foaf:mbox rdf:resource="mailto:open@defra.gov.uk"/>
+   </foaf:Agent>
+   <foaf:Organization xmlns:foaf="http://xmlns.com/foaf/0.1/"
+                      rdf:about="https://public.eametadata.com/geonetwork/srv/resources/organizations/Department%20for%20Environment%2C%20Food%20%26%20Rural%20Affairs">
+      <foaf:name>Department for Environment, Food &amp; Rural Affairs</foaf:name>
+      <foaf:member rdf:resource="https://public.eametadata.com/geonetwork/srv/resources/persons/open%40defra.gov.uk"/>
+   </foaf:Organization>
+   <foaf:Agent xmlns:foaf="http://xmlns.com/foaf/0.1/"
+               rdf:about="https://public.eametadata.com/geonetwork/srv/resources/persons/open%40defra.gov.uk">
+      <foaf:name>Open Data Team</foaf:name>
+      <foaf:mbox rdf:resource="mailto:open@defra.gov.uk"/>
+   </foaf:Agent>
+</rdf:RDF>
