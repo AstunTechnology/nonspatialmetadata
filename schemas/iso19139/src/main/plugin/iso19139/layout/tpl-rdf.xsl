@@ -425,7 +425,7 @@
       <xsl:variable name="updatefreq" select="@codeListValue"/>
       <xsl:choose>
       <xsl:when test="$updatefreq='notPlanned'">
-        <xsl:variable name="accrual" select="irregular"/>
+        <xsl:variable name="accrual" select="'irregular'"/>
         <dct:accrualPeriodicity>
         <xsl:value-of select="$accrual"/>
       </dct:accrualPeriodicity>

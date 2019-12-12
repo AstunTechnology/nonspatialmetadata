@@ -32,11 +32,12 @@ See https://github.com/ckan/ckanext-dcat#rdf-dcat-to-ckan-dataset-mapping for th
 
 * The dcat:Catalog section comes mainly from catalog settings, such as the Catalog Name and Organisation in the Admin Console -> Settings
 * The catalog language setting comes from the language used for the catalog, eg the 'eng' in the URL
-* Licence must be exactly 'Open Government Licence' (delete "other restrictions")
+* Licence must be exactly 'Open Government Licence'
 * Update Frequency maps to "accrualPeriodicity" and uses the following set of terms https://project-open-data.cio.gov/iso8601_guidance/#accrualperiodicity
 
 ## TODO
 
+* Add license and update information to distribution section
 * Create reduced editor view in the ISO19139 schema plugin
 * Create templates
 * Produce guidance on harvesting in data.gov.uk (some metadata comes from settings in data.gov.uk rather than the records themselves)
