@@ -423,9 +423,12 @@
     <xsl:for-each
       select="gmd:resourceMaintenance/gmd:MD_MaintenanceInformation/gmd:maintenanceAndUpdateFrequency/gmd:MD_MaintenanceFrequencyCode">
       <xsl:variable name="updatefreq" select="@codeListValue"/>
+      <xsl:message>=== updatefrequency=<xsl:value-of select="$updatefreq"/></xsl:message>
       <xsl:choose>
       <xsl:when test="$updatefreq='notPlanned'">
         <xsl:variable name="accrual" select="'irregular'"/>
+              <xsl:message>=== accrual=<xsl:value-of select="$accrual"/></xsl:message>
+
         <dct:accrualPeriodicity>
         <xsl:value-of select="$accrual"/>
       </dct:accrualPeriodicity>
