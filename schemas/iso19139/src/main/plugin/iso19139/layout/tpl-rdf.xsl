@@ -424,7 +424,7 @@
       select="gmd:resourceMaintenance/gmd:MD_MaintenanceInformation/gmd:maintenanceAndUpdateFrequency/gmd:MD_MaintenanceFrequencyCode">
       <xsl:variable name="updatefreq" select="@codeListValue"/>
       <xsl:choose>
-      <xsl:when test="$updatefreq='notPlanned">
+      <xsl:when test="$updatefreq='notPlanned'">
         <xsl:variable name="accrual" select="irregular"/>
         <dct:accrualPeriodicity>
         <xsl:value-of select="$accrual"/>
