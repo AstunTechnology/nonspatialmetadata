@@ -359,6 +359,18 @@
         <col del=".."/>
       </row>
     </table>
+    <table for="gmd:DistributionFormat">
+          <header>
+            <col label="gmd:name"/>
+            <col label="gmd:version"/>
+            <col/>
+          </header>
+          <row>
+            <col xpath="gmd:MD_Format/gmd:name"/>
+            <col xapth="gmd:MD_Format/gmd:version"/>
+            <col del=".."/>
+          </row>
+        </table>
     <table for="srv:SV_OperationMetadata">
       <header>
         <col label="srv:operationName"/>
@@ -3243,7 +3255,6 @@
       </sidePanel>
 
       <tab id="default-nonspatial" default="true" mode="flat">
-        <!-- <section xpath="/gmd:MD_Metadata/gmd:identificationInfo"/> -->
         <section name="identificationInfo">
           <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:citation/gmd:CI_Citation/gmd:title"/>
@@ -3251,7 +3262,7 @@
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:citation/gmd:CI_Citation/gmd:alternatetitle"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:citation/gmd:CI_Citation/gmd:date"/>
-          <field
+            <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact"/>
@@ -3259,17 +3270,18 @@
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceMaintenance/gmd:MD_MaintenanceInformation/gmd:maintenanceAndUpdateFrequency"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords"/>
-<!--             <field
-            xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints"/> -->
-            <field
-            xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:language"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:topicCategory"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement"/>
           
-          </section>
-        <section xpath="/gmd:MD_Metadata/gmd:distributionInfo"/>
+        </section>
+        <section name="gmd:distributionInfo">
+              <section xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat"/>
+              <section xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions
+                    /gmd:MD_DigitalTransferOptions/gmd:onLine"/>
+
+        </section>
         <section name="gmd:lineage" >
           <field name="lineage"
                  xpath="/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:lineage/gmd:LI_Lineage/gmd:statement"/>
