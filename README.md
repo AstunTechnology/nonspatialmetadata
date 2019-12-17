@@ -26,18 +26,20 @@ geonetwork/srv/eng/rdf.search?_cat=nonspatial
 
 Note that you may need to reindex the catalog (or the records you wish to update) for changes to show in the rdf
 
-## Notes
+## Field mapping
 
 See https://github.com/ckan/ckanext-dcat#rdf-dcat-to-ckan-dataset-mapping for the mapping from dcat to ckan
 
 * The dcat:Catalog section comes mainly from catalog settings, such as the Catalog Name and Organisation in the Admin Console -> Settings
 * The catalog language setting comes from the language used for the catalog, eg the 'eng' in the URL
-* Licence must be exactly 'Open Government Licence'
+* Licence must be exactly 'Open Government Licence' (<dct:license rdf:resource="https://webarchive.nationalarchives.gov.uk/+/http://reference.data.gov.uk/id/open-government-licence"/>)
 * Update Frequency maps to "accrualPeriodicity" and uses the following set of terms https://project-open-data.cio.gov/iso8601_guidance/#accrualperiodicity
+
 
 ## TODO
 
 * Add license and update information to distribution section
+* Add data creation and update dates (aka resource:issued and resource:modified) to distribution section
 * Create reduced editor view in the ISO19139 schema plugin
 * Create templates
 * Produce guidance on harvesting in data.gov.uk (some metadata comes from settings in data.gov.uk rather than the records themselves)

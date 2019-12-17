@@ -207,9 +207,9 @@
 
 
         <xsl:for-each select="//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/*/gmd:MD_RestrictionCode">
-          <dct:license>
+          <!-- <dct:license>
             <xsl:value-of select="@codeListValue"/>
-          </dct:license>
+          </dct:license> -->
         </xsl:for-each>
         <xsl:for-each
         select="//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString">
@@ -217,6 +217,14 @@
             <xsl:value-of select="."/>
           </dct:license>
         </xsl:for-each>
+
+      <xsl:variable name="date" select="substring-before(gmd:dateStamp/gco:DateTime, 'T')"/>
+      <dct:issued>
+        <xsl:value-of select="$date"/>
+      </dct:issued>
+      <dct:modified>
+        <xsl:value-of select="$date"/>
+      </dct:modified>
 
       </dcat:Distribution>
     </xsl:for-each-group>
