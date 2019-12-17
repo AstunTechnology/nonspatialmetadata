@@ -415,9 +415,9 @@
     </xsl:for-each>
     <xsl:for-each
       select="gmd:citation/*/gmd:date/gmd:CI_Date[gmd:dateType/gmd:CI_DateTypeCode/@codeListValue='revision']">
-      <dct:updated>
+      <dct:modified>
         <xsl:value-of select="gmd:date/gco:Date|gmd:date/gco:DateTime"/>
-      </dct:updated>
+      </dct:modified>
     </xsl:for-each>
 
     <!-- "An entity responsible for making the dataset available" -->
