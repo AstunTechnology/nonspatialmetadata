@@ -3258,22 +3258,31 @@
         <section name="identificationInfo">
           <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:citation/gmd:CI_Citation/gmd:title"/>
+            <text ref="title_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:citation/gmd:CI_Citation/gmd:alternatetitle"/>
+            <text ref="alttitle_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:citation/gmd:CI_Citation/gmd:date"/>
+            <text ref="creationdate_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract"/>
+            <text ref="abstract_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact"/>
+            <text ref="pointofcontact_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceMaintenance/gmd:MD_MaintenanceInformation/gmd:maintenanceAndUpdateFrequency"/>
+            <text ref="updatefreq_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords"/>
+            <text ref="keywords_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:topicCategory"/>
+            <text ref="topiccategory_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement"/>
+            <text ref="tempextent_help"/>
           
         </section>
         <section name="gmd:distributionInfo">
@@ -3298,13 +3307,16 @@
                   </template>
                 </action> -->
               </field>
+              <text ref="distributionformat_help"/>
             <section xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions
                     /gmd:MD_DigitalTransferOptions/gmd:onLine"/>
+                    <text ref="onlineresource_help"/>
 
         </section>
         <section name="gmd:lineage" >
           <field name="lineage"
                  xpath="/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:lineage/gmd:LI_Lineage/gmd:statement"/>
+                 <text ref="lineage_help"/>
         </section>
 
       </tab>
