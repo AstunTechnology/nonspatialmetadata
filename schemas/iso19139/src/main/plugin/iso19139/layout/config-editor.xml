@@ -3277,8 +3277,59 @@
           
         </section>
         <section name="gmd:distributionInfo">
-              <section xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat"/>
-              <section xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions
+            <field xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat">
+                  <!-- <template>
+                    <values>
+                      <key label="Name"
+                        required="true"
+                        xpath="gmd:name"/>
+                      </values>
+                    <snippet>
+                      <gmd:distributionFormat>
+                        <gmd:MD_Format>
+                          <gmd:name>
+                            <gco:CharacterString>{{name}}</gco:CharacterString>
+                          </gmd:name>
+                          <gmd:version>
+                            <gco:CharacterString>unknown</gco:CharacterString>
+                          </gmd:version>
+                        </gmd:MD_Format>
+                      </gmd:distributionFormat>
+                    </snippet>
+                  </template> -->
+                  
+              <!-- <action type="add" btnLabel="addDistFormat"
+                  name="name" or="name"
+                  in="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution">
+                  <template>
+                    <snippet label="addDistFormatText">
+                      <gmd:distributionFormat>
+                        <gmd:MD_Format>
+                          <gmd:name>
+                            <gco:CharacterString>Text</gco:CharacterString>
+                          </gmd:name>
+                          <gmd:version>
+                            <gco:CharacterString>unknown</gco:CharacterString>
+                          </gmd:version>
+                        </gmd:MD_Format>
+                      </gmd:distributionFormat>
+                    </snippet>
+                    <snippet label="addDistFormatCSV">
+                      <gmd:distributionFormat>
+                        <gmd:MD_Format>
+                          <gmd:name>
+                            <gco:CharacterString>CSV</gco:CharacterString>
+                          </gmd:name>
+                          <gmd:version>
+                            <gco:CharacterString>unknown</gco:CharacterString>
+                          </gmd:version>
+                        </gmd:MD_Format>
+                      </gmd:distributionFormat>
+                    </snippet>
+                  </template>
+                </action> -->
+              </field>
+            <section xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions
                     /gmd:MD_DigitalTransferOptions/gmd:onLine"/>
 
         </section>

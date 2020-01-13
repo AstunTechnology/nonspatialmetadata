@@ -229,4 +229,8 @@
 
   <sds-section-custodian>Responsible custodian</sds-section-custodian>
   <sds-addOperation>Add Operation</sds-addOperation>
+  <addDistFormat>Distribution Format</addDistFormat>
+  <addDistFormatText>Text</addDistFormatText>
+  <addDistFormatCSV>CSV</addDistFormatCSV>
+  <distributionFormat>Distribution Format</distributionFormat>
 </strings>
