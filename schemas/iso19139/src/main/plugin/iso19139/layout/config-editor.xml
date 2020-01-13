@@ -3086,7 +3086,7 @@
 
     </view>
 
-    <view name="default" >
+    <view name="default" displayIfRecord="not(contains(gmd:MD_Metadata/gmd:hierarchyLevelName/gco:CharacterString,'NonGeographicDataset'))" >
       <sidePanel>
         <directive data-gn-onlinesrc-list=""/>
         <directive gn-geo-publisher=""
@@ -3163,7 +3163,7 @@
       </thesaurusList>
 
     </view>
-    <view name="advanced">
+    <view name="advanced" displayIfRecord="not(contains(gmd:MD_Metadata/gmd:hierarchyLevelName/gco:CharacterString,'NonGeographicDataset'))">
       <sidePanel>
         <directive data-gn-onlinesrc-list=""/>
         <directive gn-geo-publisher=""
