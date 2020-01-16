@@ -577,6 +577,7 @@
   <!-- the gml element having no child eg. gml:name. -->
   <xsl:template mode="mode-iso19139" priority="100" match="gml:*[count(.//gn:element) = 1]">
     <xsl:variable name="name" select="name(.)"/>
+    <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(.)"/>
 
     <xsl:variable name="labelConfig" select="gn-fn-metadata:getLabel($schema, $name, $labels)"/>
     <xsl:variable name="helper" select="gn-fn-metadata:getHelper($labelConfig/helper, .)"/>
@@ -588,7 +589,7 @@
       <xsl:with-param name="value" select="."/>
       <xsl:with-param name="cls" select="local-name()"/>
       <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
-      <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, name(), '')"/>
+      <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, name(), '', $xpath)"/>
       <xsl:with-param name="name" select="if ($isEditing) then gn:element/@ref else ''"/>
       <xsl:with-param name="editInfo"
                       select="gn:element"/>
