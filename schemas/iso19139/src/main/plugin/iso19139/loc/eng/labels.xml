@@ -1804,7 +1804,7 @@
       <option value="OGC:WMC">OGC:WMC</option>
       <option value="OGC:OWS-C">OGC OWS Context</option>
     </helper>
-    <helper rel="gmd:version" displayIf="ancestor::node()[name()='gmd:MD_Metadata']/gmd:hierarchyLevelName/gco:CharacterString[contains(.,'NonGeographicDataset')]">
+    <helper rel="gmd:version" sort=true displayIf="ancestor::node()[name()='gmd:MD_Metadata']/gmd:hierarchyLevelName/gco:CharacterString[contains(.,'NonGeographicDataset')]">
     <!-- <helper rel="gmd:version"> -->
       <option value="ACCDB">MS Access 2007 onwards database (ACCDB)</option>
       <option value="CSV">Comma-Separated Values (CSV)</option>
@@ -2473,6 +2473,11 @@
       <option value="RBNB:DATATURBINE">Data Turbine</option>
       <option value="UKST">Unknown Service Type</option>
       <option value="INSPIRE-ATOM">INSPIRE-ATOM</option>  
+  </helper>
+  <helper sort=true displayIf="ancestor::node()[name()='gmd:MD_Metadata']/gmd:hierarchyLevelName/gco:CharacterString[contains(.,'NonGeographicDataset')]">
+  	  <option value="WWW:DOWNLOAD-1.0-ftp--download">File for download through FTP</option>
+      <option value="WWW:DOWNLOAD-1.0-http--download">File for download</option>
+      <option value="WWW:LINK-1.0-http--link" default="">Web address (URL)</option>
   </helper>
   </element>
   <element name="gmd:purpose" id="26.0">
