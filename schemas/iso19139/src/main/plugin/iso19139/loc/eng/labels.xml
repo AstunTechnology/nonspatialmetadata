@@ -1806,14 +1806,19 @@
     </helper>
     <helper rel="gmd:version" displayIf="ancestor::node()[name()='gmd:MD_Metadata']/gmd:hierarchyLevelName/gco:CharacterString[contains(.,'NonGeographicDataset')]">
     <!-- <helper rel="gmd:version"> -->
-      <option value="Text">Text</option>
-      <option value="TIFF">TIFF</option>
-      <option value="ECW">ECW</option>
-      <option value="JPEG2000">JPEG2000</option>
-      <option value="ZIP">ZIP</option>
-      <option value="PDF">PDF</option>
-      <option value="PNG">PNG</option>
-      <option value="JPEG">JPEG</option>
+      <option value="ACCDB">MS Access 2007 onwards database (ACCDB)</option>
+      <option value="CSV">Comma-Separated Values (CSV)</option>
+      <option value="MDB">MS Access database pre-2007 (MDB)</option>
+      <option value="XLS">MS Excel (XLS)</option>
+      <option value="XLSX">MS Excel (XLSX)</option>
+      <option value="ODT">Open Document Text (ODT)</option>
+      <option value="ODS">Open Document Spreadsheet (ODS)</option>
+      <option value="PSV">Pipe-Separated Values (PSV)</option>
+      <option value="PDF">Portable Document Format - Standardized (PDF)</option>
+      <option value="TXT">Plain Text (TXT)</option>
+      <option value="TSV">Tab-Separated Values (TSV)</option>
+      <option value="DOC">MS Word Document pre-2010 (DOC)</option>
+      <option value="DOCX">MS Word Document 2010 onwards (DOCX)</option>
     </helper>
   </element>
 
