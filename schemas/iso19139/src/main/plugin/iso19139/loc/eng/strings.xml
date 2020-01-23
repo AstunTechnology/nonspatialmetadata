@@ -229,7 +229,8 @@
 
   <sds-section-custodian>Responsible custodian</sds-section-custodian>
   <sds-addOperation>Add Operation</sds-addOperation>
-  <distributionFormat>Add Distribution Format</distributionFormat>
+  <distributionFormat>Distribution Format</distributionFormat>
+  <addDistFormat>Distribution Format</addDistFormat>
 
   <!-- help strings for non-spatial -->
   <title_help><div class="row">
@@ -261,7 +262,7 @@
       <p class="help-block">The temporal extent of the resource (optional)</p></div></div></tempextent_help>
   <distributionformat_help><div class="row">
     <div class="col-xs-offset-2 col-xs-8">
-      <p class="help-block">The format in which the resource is distributed. Choose from the dropdown list and choose "unknown" for the version if it is not known or not needed (Mandatory)</p></div></div></distributionformat_help>
+      <p class="help-block">The format in which the resource is distributed</p></div></div></distributionformat_help>
   <onlineresource_help><div class="row">
     <div class="col-xs-offset-2 col-xs-8">
       <p class="help-block">A online link to the resource or to a page describing it. Use the resource wizard to add this (mandatory)</p></div></div></onlineresource_help>

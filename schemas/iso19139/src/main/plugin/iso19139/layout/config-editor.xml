@@ -3286,10 +3286,9 @@
           
         </section>
         <section name="gmd:distributionInfo">
-            <field name = "distributionFormat" xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat"
-                or="distributionFormat" in="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution">
-                  <!-- <action type="add" btnLabel="addDistFormat"
-                  name="name" or="name"
+            <field name = "distributionFormat" xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format/gmd:name" del="../.."/>
+                  <action type="add" btnLabel="addDistFormat"
+                  name="distributionFormat" or="distributionFormat"
                   in="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution">
                   <template>
                     <snippet label="addDistFormat">
@@ -3299,19 +3298,17 @@
                             <gco:CharacterString></gco:CharacterString>
                           </gmd:name>
                           <gmd:version>
-                            <gco:CharacterString></gco:CharacterString>
+                            <gco:CharacterString>unknown</gco:CharacterString>
                           </gmd:version>
                         </gmd:MD_Format>
                       </gmd:distributionFormat>
                     </snippet>
                   </template>
-                </action> -->
-              </field>
+                </action>
               <text ref="distributionformat_help"/>
-            <section xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions
+        <section xpath="/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions
                     /gmd:MD_DigitalTransferOptions/gmd:onLine"/>
-                    <text ref="onlineresource_help"/>
-
+            <text ref="onlineresource_help"/>
         </section>
         <section name="gmd:lineage" >
           <field name="lineage"
