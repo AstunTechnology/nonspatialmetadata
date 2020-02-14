@@ -239,9 +239,9 @@
   <alttitle_help><div class="row">
     <div class="col-xs-offset-2 col-xs-8">
       <p class="help-block">An alternative title for the resource (optional)</p></div></div></alttitle_help>
-  <creationdate_help><div class="row">
+  <date_help><div class="row">
     <div class="col-xs-offset-2 col-xs-8">
-      <p class="help-block">The date the resource was created (mandatory)</p></div></div></creationdate_help>
+      <p class="help-block">The date the resource was created (mandatory), and it's most recent revision date</p></div></div></date_help>
   <abstract_help><div class="row">
     <div class="col-xs-offset-2 col-xs-8">
       <p class="help-block">A description of the resource (mandatory)</p></div></div></abstract_help>

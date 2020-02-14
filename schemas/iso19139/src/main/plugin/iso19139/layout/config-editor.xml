@@ -3264,7 +3264,7 @@
             <text ref="alttitle_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:citation/gmd:CI_Citation/gmd:date"/>
-            <text ref="creationdate_help"/>
+            <text ref="date_help"/>
             <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract"/>
             <text ref="abstract_help"/>
