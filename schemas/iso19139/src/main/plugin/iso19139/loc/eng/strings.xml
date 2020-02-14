@@ -231,6 +231,7 @@
   <sds-addOperation>Add Operation</sds-addOperation>
   <distributionFormat>Distribution Format</distributionFormat>
   <addDistFormat>Distribution Format</addDistFormat>
+  <addOnlineResource>Online Resource</addOnlineResource>
 
   <!-- help strings for non-spatial -->
   <title_help><div class="row">
@@ -265,7 +266,7 @@
       <p class="help-block">The format in which the resource is distributed (mandatory)</p></div></div></distributionformat_help>
   <onlineresource_help><div class="row">
     <div class="col-xs-offset-2 col-xs-8">
-      <p class="help-block">A online link to the resource or to a page describing it (mandatory). Use the resource wizard to add this</p></div></div></onlineresource_help>
+      <p class="help-block">A online link to the resource or to a page describing it (mandatory)</p></div></div></onlineresource_help>
   <lineage_help><div class="row">
     <div class="col-xs-offset-2 col-xs-8">
       <p class="help-block">The process used to create the resource (mandatory)</p></div></div></lineage_help>
