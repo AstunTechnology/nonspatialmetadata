@@ -3256,6 +3256,13 @@
         <directive data-gn-need-help="user-guide/describing-information/creating-metadata.html"/>
       </sidePanel>
 
+      <!-- <thesaurusList>
+        <thesaurus key="external.theme.httpinspireeceuropaeutheme-theme"
+             maxtags="2"
+             fieldset="false"
+             transformations=""/>
+      </thesaurusList> -->
+
       <tab id="default-nonspatial" default="true" mode="flat">
         <section name="identificationInfo">
           <field
@@ -3318,16 +3325,16 @@
                       <gmd:onLine>
                           <gmd:CI_OnlineResource>
                              <gmd:linkage>
-                                <gmd:URL>http://url/to/yourdata</gmd:URL>
+                                <gmd:URL>ADD DATA URL</gmd:URL>
                              </gmd:linkage>
                              <gmd:protocol>
-                                <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                                <gco:CharacterString>WWW:DOWNLOAD-1.0-http--download</gco:CharacterString>
                              </gmd:protocol>
                              <gmd:name>
-                                <gco:CharacterString>ADD A NAME HERE</gco:CharacterString>
+                                <gco:CharacterString>ADD NAME HERE</gco:CharacterString>
                              </gmd:name>
                              <gmd:description>
-                                <gco:CharacterString>ADD A DESCRIPTION HERE</gco:CharacterString>
+                                <gco:CharacterString>ADD DESCRIPTION HERE</gco:CharacterString>
                              </gmd:description>
                              <gmd:function>
                                 <gmd:CI_OnLineFunctionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_OnLineFunctionCode"
@@ -3378,8 +3385,12 @@
       -->
 
       <thesaurusList>
-        <thesaurus key="external.none.allThesaurus"
-                   fieldset="false"/>
+        <thesaurus key="external.theme.httpinspireeceuropaeutheme-theme"
+                   maxtags=""
+                   fieldset="false"
+                   transformations=""/>
+        <!-- <thesaurus key="external.none.allThesaurus"
+                   fieldset="false"/> -->
       </thesaurusList>
 
     </view>

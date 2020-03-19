@@ -232,6 +232,11 @@
   <distributionFormat>Distribution Format</distributionFormat>
   <addDistFormat>Distribution Format</addDistFormat>
   <addOnlineResource>Online Resource</addOnlineResource>
+  <linkage>Resource Locator</linkage>
+  <protocol>Protocol</protocol>
+  <name>Name</name>
+  <description>Description</description>
+  <function>Function</function>
 
   <!-- help strings for non-spatial -->
   <title_help><div class="row">
