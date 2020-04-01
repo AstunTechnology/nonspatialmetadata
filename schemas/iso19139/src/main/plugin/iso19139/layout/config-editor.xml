@@ -3246,14 +3246,14 @@
 
     <view name="nonspatial" hideTimeInCalendar="true" default="true" displayIfRecord="contains(gmd:MD_Metadata/gmd:hierarchyLevelName/gco:CharacterString,'NonGeographicDataset')">
       <sidePanel>
-        <directive data-gn-onlinesrc-list=""/>
+        <!-- <directive data-gn-onlinesrc-list=""/>
         <directive gn-geo-publisher=""
                    data-ng-if="gnCurrentEdit.geoPublisherConfig"
                    data-config="{{gnCurrentEdit.geoPublisherConfig}}"
-                   data-lang="lang"/>
+                   data-lang="lang"/> -->
         <directive data-gn-validation-report=""/>
-        <directive data-gn-suggestion-list=""/>
-        <directive data-gn-need-help="user-guide/describing-information/creating-metadata.html"/>
+        <!-- <directive data-gn-suggestion-list=""/> -->
+        <!-- <directive data-gn-need-help="user-guide/describing-information/creating-metadata.html"/> -->
       </sidePanel>
 
       <tab id="default-nonspatial" default="true" mode="flat">
