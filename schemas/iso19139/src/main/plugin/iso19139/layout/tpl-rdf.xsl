@@ -328,9 +328,9 @@
     <!-- xpath: gmd:identificationInfo/*/gmd:citation/*/gmd:title/gco:CharacterString -->
 
 
-    <dct:abstract>
+    <dct:description>
       <xsl:value-of select="gmd:abstract/gco:CharacterString"/>
-    </dct:abstract>
+    </dct:description>
     <!-- xpath: gmd:identificationInfo/*/gmd:abstract/gco:CharacterString -->
 
 
