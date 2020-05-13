@@ -327,9 +327,13 @@
     </dct:title>
     <!-- xpath: gmd:identificationInfo/*/gmd:citation/*/gmd:title/gco:CharacterString -->
 
-
+    <!-- concatenate abstract and lineage to form description as dcat -> ckan mappings don't seem to include dataquality -->
     <dct:description>
       <xsl:value-of select="gmd:abstract/gco:CharacterString"/>
+      <xsl:for-each
+      select="../../gmd:dataQualityInfo/*/gmd:lineage/gmd:LI_Lineage/gmd:statement/gco:CharacterString">
+        <xsl:value-of select="."/>
+    </xsl:for-each>
     </dct:description>
     <!-- xpath: gmd:identificationInfo/*/gmd:abstract/gco:CharacterString -->
 
@@ -547,13 +551,13 @@
 
 
     <!-- "describes the quality of data." -->
-    <xsl:for-each
+    <!-- <xsl:for-each
       select="../../gmd:dataQualityInfo/*/gmd:lineage/gmd:LI_Lineage/gmd:statement/gco:CharacterString">
-      <dcat:dataQuality>
+      <dcat:dataQuality> -->
         <!-- rdfs:literal -->
-        <xsl:value-of select="."/>
+        <!-- <xsl:value-of select="."/>
       </dcat:dataQuality>
-    </xsl:for-each>
+    </xsl:for-each> -->
     <!-- xpath: gmd:dataQualityInfo/*/gmd:lineage/gmd:LI_Lineage/gmd:statement/gco:CharacterString -->
 
 
