@@ -12,7 +12,28 @@ Copy the root `web`and `schemas` folders over those in your build directory befo
 
 ### Deploying in a pre-built application
 
-Copy `web/src/main/xslt` into `/var/lib/tomcat8/webapps/geonetwork` and `schemas/iso19139/src/main/iso19139` into `[data_dir]/config/schema_plugins` and restart your web service.
+Copy `web/src/main/xslt` into `/var/lib/tomcat8/webapps/geonetwork` and `schemas/iso19139/src/main/iso19139` into `[data_dir]/config/schema_plugins`
+
+Copy `xml_iso19139-schemaupgrade.xsl` into the `process` folders of any schemas you have records you wish to convert. 
+
+Add the following to `/var/lib/tomcat8/webapps/geonetwork/catalog/config/batch-cfg.json`:
+
+	{
+    "key": "xml_iso19139-schemaupgrade",
+    "type": "fixed-params",
+    "params": []
+  	}
+
+Add the following to `/var/lib/tomcat8/webapps/geonetwork/catalog/locales/en-custom.json`:
+
+	"xml_iso19139-schemaupgrade.xsl":"convert to ISO19139 non-spatial"
+
+Restart your web service. The conversion script should then be available in Admin console -> Tools -> batch process
+
+## Simplified Editor
+
+A simplified editing interface is available for non-spatial records and will be the default if you edit a converted record. It contains in-built guidance and shows only the fields required for non-spatial records. The advanced editing view has been disabled, but xml view is still available. The online resource wizard and suggestions wizard have also been disabled.
+
 
 ## Samples
 
