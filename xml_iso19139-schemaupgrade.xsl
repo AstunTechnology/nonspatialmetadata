@@ -23,10 +23,26 @@
 
 
     <xsl:template match="@*|node()">
-        <xsl:copy>
+        <xsl:copy  copy-namespaces="no">
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
+
+    <xsl:template match="*" priority="1">
+        <xsl:element name="{name()}" namespace="{namespace-uri()}">
+            <xsl:namespace name="gml" select="'http://www.opengis.net/gml/3.2'"/>
+            <xsl:namespace name="srv" select="'http://www.isotc211.org/2005/srv'"/>
+            <xsl:namespace name="gmx" select="'http://www.isotc211.org/2005/gmx'"/>
+            <xsl:namespace name="gco" select="'http://www.isotc211.org/2005/gco'"/>
+            <xsl:namespace name="xsi" select="'http://www.w3.org/2001/XMLSchema-instance'"/>
+            <xsl:namespace name="xlink" select="'http://www.w3.org/1999/xlink'"/>
+            <xsl:namespace name="gmd" select="'http://www.isotc211.org/2005/gmd'"/>
+            <xsl:namespace name="xs" select="'http://www.w3.org/2001/XMLSchema'"/>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="@xsi:schemaLocation" priority="10"/>
 
     <!--  Change metadata standard name and version  -->
     <xsl:template match="//gmd:metadataStandardName"  priority="10">
