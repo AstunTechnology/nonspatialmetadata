@@ -22,15 +22,11 @@
     <!-- ================================================================= -->
 
 
-    <xsl:template match="@*|node()">
-        <xsl:copy  copy-namespaces="no">
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
-    </xsl:template>
+ 
 
     <xsl:template match="*" priority="1">
         <xsl:element name="{name()}" namespace="{namespace-uri()}">
-            <xsl:namespace name="gml" select="'http://www.opengis.net/gml/3.2'"/>
+            <xsl:namespace name="gml" select="'http://www.opengis.net/gml'"/>
             <xsl:namespace name="srv" select="'http://www.isotc211.org/2005/srv'"/>
             <xsl:namespace name="gmx" select="'http://www.isotc211.org/2005/gmx'"/>
             <xsl:namespace name="gco" select="'http://www.isotc211.org/2005/gco'"/>
@@ -109,7 +105,29 @@
         <xsl:message>=== Removing empty extent blocks</xsl:message>
     </xsl:template>
 
-
+    <!-- Update gml namespace references for time period-->
+    <xsl:template match="gml:TimePeriod" xmlns:gml="http://www.opengis.net/gml/3.2" priority="10">
+        <xsl:element name="{name()}" namespace="http://www.opengis.net/gml">
+            <xsl:attribute name="gml:id" namespace="http://www.opengis.net/gml">1234</xsl:attribute>
+            <!--<xsl:apply-templates select="*|@*"/>-->
+            <xsl:apply-templates select="node()"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="gml:beginPosition" xmlns:gml="http://www.opengis.net/gml/3.2" priority="100">
+        <xsl:element name="{name()}" namespace="http://www.opengis.net/gml">
+            <xsl:apply-templates/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="gml:endPosition" xmlns:gml="http://www.opengis.net/gml/3.2" priority="100">
+        <xsl:variable name="position" select="@indeterminatePosition"/>
+        <xsl:element name="{name()}" namespace="http://www.opengis.net/gml">
+            <xsl:attribute name="indeterminatePosition"><xsl:value-of select="$position"/></xsl:attribute>
+            <xsl:apply-templates/>
+        </xsl:element>
+    </xsl:template>
+    
 
     <!--  Remove gmd:referenceSystemInfo elements  -->
     <xsl:template match="gmd:referenceSystemInfo" priority="10">
@@ -123,5 +141,11 @@
 
     <!--  Remove geonet:* elements.  -->
     <xsl:template match="geonet:*" priority="10"/>
+    
+    <!--<xsl:template match="@*|node()">
+        <xsl:copy  copy-namespaces="no">
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>-->
 
 </xsl:stylesheet>
