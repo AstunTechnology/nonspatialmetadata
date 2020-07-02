@@ -56,15 +56,18 @@
 
     </xsl:template>
 
-    <!--  Change hierarchy level name  -->
+    <!--  Change hierarchy level and level name  -->
+    <!-- Only if it doesn't already equal NonGeographicDataset -->
     <xsl:template match="//gmd:hierarchyLevel"  priority="10">
-        <xsl:message>=== Updating Hierarchy Level Name</xsl:message>
-        <gmd:hierarchyLevel>
-            <gmd:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#MD_ScopeCode" codeListValue="nonGeographicDataset" codeSpace="ISOTC211/19115"/>
-        </gmd:hierarchyLevel>
-        <gmd:hierarchyLevelName>
-      <gco:CharacterString>NonGeographicDataset</gco:CharacterString>
-  </gmd:hierarchyLevelName>
+                <gmd:hierarchyLevel>
+                    <gmd:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#MD_ScopeCode" codeListValue="nonGeographicDataset" codeSpace="ISOTC211/19115"/>
+                </gmd:hierarchyLevel>
+    </xsl:template>
+    
+    <xsl:template match="//gmd:hierarchyLevelName"  priority="10">
+                    <gmd:hierarchyLevelName>
+                        <gco:CharacterString>NonGeographicDataset</gco:CharacterString>
+                    </gmd:hierarchyLevelName>
     </xsl:template>
 
     <xsl:template match="//gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:scope" priority="10">
