@@ -95,6 +95,9 @@
           when('/batchedit', {
             templateUrl: tplFolder + 'batchedit.html',
             controller: 'GnBatchEditController'}).
+          when('/accessManager', {
+            templateUrl: tplFolder + 'accessManager.html',
+            controller: 'GnAccessManagerController'}).
           when('/board', {
             templateUrl: tplFolder + 'editorboard.html',
             controller: 'GnEditorBoardController'}).
@@ -112,13 +115,13 @@
     'gnEditor', 'gnSearchManagerService', 'gnSchemaManagerService',
     'gnConfigService', 'gnUtilityService', 'gnOnlinesrc',
     'gnCurrentEdit', 'gnConfig', 'gnMetadataActions', 'Metadata',
-    'gnValidation',
+    'gnValidation', 'gnGlobalSettings',
     function($q, $scope, $routeParams, $http, $rootScope,
         $translate, $compile, $timeout, $location,
         gnEditor, gnSearchManagerService, gnSchemaManagerService,
         gnConfigService, gnUtilityService, gnOnlinesrc,
         gnCurrentEdit, gnConfig, gnMetadataActions, Metadata,
-        gnValidation) {
+        gnValidation, gnGlobalSettings) {
       $scope.savedStatus = null;
       $scope.savedTime = null;
       $scope.formId = null;
@@ -157,12 +160,17 @@
         promises.push(gnConfigService.load());
         $q.all(promises).then(function(c) {
           // Config loaded
+
+          // Enable workflow functions
+          $scope.isMdWorkflowEnable = gnConfig['metadata.workflow.enable'];
+
           if ($routeParams.id) {
             // Check requested metadata exists
             gnSearchManagerService.gnSearch({
               _id: $routeParams.id,
               _content_type: 'json',
               _isTemplate: 'y or n or s',
+              _draft: 'y or n or e',
               fast: 'index'
             }).then(function(data) {
               $scope.metadataFound = data.count !== '0';
@@ -186,6 +194,7 @@
 
               // Get the schema configuration for the current record
               gnCurrentEdit.metadata = new Metadata(data.metadata[0]);
+              gnCurrentEdit.schema = $scope.mdSchema;
               $scope.redirectUrl = $location.search()['redirectUrl'];
 
               if ($scope.metadataFound) {
@@ -227,6 +236,7 @@
                   id: $routeParams.id,
                   formId: '#gn-editor-' + $routeParams.id,
                   containerId: '#gn-editor-container-' + $routeParams.id,
+                  associatedPanelConfigId: 'default',
                   tab: $location.search()['tab'] || defaultTab,
                   displayAttributes: $location.search()['displayAttributes'] === 'true',
                   displayTooltips: $location.search()['displayTooltips'] === 'true',
@@ -234,7 +244,8 @@
                   compileScope: $scope,
                   formScope: $scope.$new(),
                   sessionStartTime: moment(),
-                  formLoadExtraFn: setViewMenuInTopToolbar,
+                  formLoadExtraFn: formLoadExtraFunctions,
+                  codelistFilter: '',
                   working: false
                 });
 
@@ -277,6 +288,13 @@
                     // and all directives to be rendered which
                     // may affect element positions.
                   }
+                }).catch(function(data) {
+                  //an api-error is returned as xml
+                  $rootScope.$broadcast('StatusUpdated', {
+                    title: $translate.instant('runServiceError'),
+                    error: $(data).find('description').text(),
+                    timeout: 0,
+                    type: 'danger'});
                 });
 
                 window.onbeforeunload = function() {
@@ -291,11 +309,40 @@
         });
       };
 
+      /**
+       * Extra functions to load after the form is loaded
+       */
+      var formLoadExtraFunctions = function() {
+        setViewMenuInTopToolbar();
+        setEditorIndentType();
+      };
+
+      $scope.$on('$locationChangeSuccess', function(e, newUrl, oldUrl) {
+        var target = $location.search()['scrollTo'];
+        if (target) {
+          gnUtilityService.scrollTo(target);
+        }
+      });
+
       $scope.$watch('gnCurrentEdit.isMinor', function() {
         if ($('#minor')[0]) {
           $('#minor')[0].value = $scope.gnCurrentEdit.isMinor;
         }
       });
+
+      /**
+       * Function to set the editor indent type
+       */
+      var setEditorIndentType = function() {
+        var f = $('form.gn-editor');
+        // If CSS class is defined in the view in config-editor.xml, don't do anything
+        if (!f.hasClass('gn-editor-config-css') &&
+          angular.isDefined(gnGlobalSettings.gnCfg.mods.editor.editorIndentType)) {
+          // add indent type to editor based on UI configuration
+          f.addClass(gnGlobalSettings.gnCfg.mods.editor.editorIndentType);
+        }
+
+      };
 
       /**
        * When the form is loaded, this function is called.
@@ -312,6 +359,7 @@
             });
           }
         });
+
       };
 
       /**
@@ -349,7 +397,7 @@
         //        $($scope.formId + ' > fieldset').fadeOut(duration);
         $scope.save(true);
 
-        $location.search('tab', tabIdentifier);
+        $location.search('tab', tabIdentifier).replace();
       };
 
       /**
@@ -433,17 +481,17 @@
         // remove element and save the form
         // after remove is done. When removing an element
         // the button to add the element again is not available
-    	// in case of elements with max cardinality of 1.
-    	// Saving the form will show the add button again.
+      // in case of elements with max cardinality of 1.
+      // Saving the form will show the add button again.
         return gnEditor.remove(gnCurrentEdit.id, ref, parent, domRef).then(function(){
-          	gnEditor.save(true);
+            gnEditor.save(true);
         }, function(rejectedValue) {
-  			$rootScope.$broadcast('StatusUpdated', {
-  			  title: $translate.instant('runServiceError'),
-  			  error: rejectedValue,
-  			  timeout: 0,
-  			  type: 'danger'
-  			});
+        $rootScope.$broadcast('StatusUpdated', {
+          title: $translate.instant('runServiceError'),
+          error: rejectedValue,
+          timeout: 0,
+          type: 'danger'
+        });
         });
       };
       $scope.removeAttribute = function(ref) {
@@ -454,7 +502,12 @@
         return $scope.save(refreshForm);
       };
 
-      $scope.save = function(refreshForm) {
+      $scope.save = function(refreshForm, validate) {
+        if (angular.isDefined(validate)) {
+          $('#showvalidationerrors')[0].value =
+            gnCurrentEdit.showValidationErrors = validate;
+        }
+
         $scope.saveError = false;
         var promise = gnEditor.save(refreshForm)
             .then(function(form) {
@@ -533,22 +586,12 @@
         }
       };
 
-      function parseXmlError(error) {
-        if (error.indexOf('<?xml') === 0) {
-          var x = jQuery.parseXML(error),
-              d = x.getElementsByTagName('description'),
-              m = d[0].textContent;
-          return m;
-        }
-        return null;
-      };
-
-      $scope.close = function() {
+      $scope.close = function(submit, approve) {
         // if auto unpublish is not set in the settings, or if MD is not
         // published: close w/o confirmation
         if (!$scope.gnCurrentEdit.metadata.isPublished() ||
             !gnConfig['metadata.workflow.automaticUnpublishInvalidMd']) {
-          $scope.confirmClose();
+          $scope.confirmClose(submit, approve);
           return;
         }
 
@@ -560,26 +603,26 @@
           if (hasErrors) {
             $('#confirm-editor-close').modal('show');
           } else {
-            $scope.confirmClose();
+            $scope.confirmClose(submit, approve);
           }
         });
       };
-      $scope.confirmClose = function() {
-        var promise = gnEditor.save(false, null, true)
+      $scope.confirmClose = function(submit, approve) {
+        var promise = gnEditor.save(false, null, true, submit, approve)
             .then(function(form) {
               closeEditor();
             }, function(error) {
               // When closing editor and if error occurs,
               // the response is in XML. Try to get the message
-              message = parseXmlError(error);
+
+              $scope.savedStatus = gnCurrentEdit.savedStatus;
+              $scope.saveError = true;
 
               $rootScope.$broadcast('StatusUpdated', {
-                title: message ?
-                message : $translate.instant('saveMetadataError'),
-                error: message ? undefined : error,
+                title: error ? error.message : $translate.instant('saveMetadataError'),
+                error: error,
                 timeout: 0,
                 type: 'danger'});
-              closeEditor();
             });
         $scope.savedStatus = gnCurrentEdit.savedStatus;
         return promise;
@@ -603,11 +646,6 @@
           insertRef, position, attribute) {
             $scope.add(ref, name, insertRef, position, attribute);
           });
-
-      $scope.validate = function() {
-        $('#showvalidationerrors')[0].value = 'true';
-        return $scope.save(true);
-      };
 
       init();
 
