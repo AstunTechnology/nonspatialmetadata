@@ -206,17 +206,17 @@
         <!-- Copied from dcat:dataset section for DGU -->
 
 
-        <xsl:for-each select="//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/*/gmd:MD_RestrictionCode">
+        <!-- <xsl:for-each select="//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/*/gmd:MD_RestrictionCode"> -->
           <!-- <dct:license>
             <xsl:value-of select="@codeListValue"/>
           </dct:license> -->
-        </xsl:for-each>
+       <!--  </xsl:for-each>
         <xsl:for-each
         select="//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString">
           <dct:license>
             <xsl:value-of select="."/>
           </dct:license>
-        </xsl:for-each>
+        </xsl:for-each> -->
 
       <xsl:variable name="date" select="substring-before(gmd:dateStamp/gco:DateTime, 'T')"/>
       <dct:issued>
@@ -332,10 +332,23 @@
       <xsl:value-of select="gmd:abstract/gco:CharacterString"/>
       <xsl:for-each
       select="../../gmd:dataQualityInfo/*/gmd:lineage/gmd:LI_Lineage/gmd:statement/gco:CharacterString">
+      <xsl:text> | </xsl:text>
         <xsl:value-of select="."/>
     </xsl:for-each>
     </dct:description>
     <!-- xpath: gmd:identificationInfo/*/gmd:abstract/gco:CharacterString -->
+
+    
+   <xsl:for-each select="gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"> 
+   <xsl:variable name="licensestring" select="gco:CharacterString"/>  
+   <xsl:message>======= License: <xsl:value-of select="$licensestring"/> ==========</xsl:message>  
+    <dct:license>
+      <xsl:value-of select="$licensestring"/>
+    </dct:license>
+  </xsl:for-each>
+
+        
+    
 
 
     <!-- "A keyword or tag describing the dataset."
