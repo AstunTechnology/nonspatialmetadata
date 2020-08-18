@@ -228,7 +228,7 @@
                   <gco:CharacterString>Open Government Licence</gco:CharacterString>
                </gmd:otherConstraints>
                <gmd:otherConstraints>
-                  <gco:CharacterString>© Crown copyright</gco:CharacterString>
+                  <gco:CharacterString>© Crown Copyright</gco:CharacterString>
                </gmd:otherConstraints>
             </gmd:MD_LegalConstraints>
          </gmd:resourceConstraints>

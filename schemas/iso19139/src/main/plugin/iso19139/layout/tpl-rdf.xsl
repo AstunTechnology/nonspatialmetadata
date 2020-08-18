@@ -255,7 +255,7 @@
       <xsl:value-of select="gmd:abstract/gco:CharacterString"/>
       <xsl:for-each
       select="../../gmd:dataQualityInfo/*/gmd:lineage/gmd:LI_Lineage/gmd:statement/gco:CharacterString">
-      <xsl:text> | </xsl:text>
+      <xsl:text> Lineage:  </xsl:text>
         <xsl:value-of select="."/>
     </xsl:for-each>
     </dct:description>
