@@ -85,9 +85,10 @@
       <dct:modified>
         <xsl:value-of select="$date"/>
       </dct:modified>
-        <xsl:for-each select="gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"> 
+      
+      <xsl:for-each select="gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"> 
        <xsl:variable name="licensestring" select="gco:CharacterString"/>  
-       <xsl:message>======= License: <xsl:value-of select="$licensestring"/> ==========</xsl:message>  
+       <xsl:message>======= Catalog Record License: <xsl:value-of select="$licensestring"/> ==========</xsl:message>  
         <dct:license>
           <xsl:value-of select="$licensestring"/>
         </dct:license>
