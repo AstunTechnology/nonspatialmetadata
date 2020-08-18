@@ -85,6 +85,13 @@
       <dct:modified>
         <xsl:value-of select="$date"/>
       </dct:modified>
+        <xsl:for-each select="gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"> 
+       <xsl:variable name="licensestring" select="gco:CharacterString"/>  
+       <xsl:message>======= License: <xsl:value-of select="$licensestring"/> ==========</xsl:message>  
+        <dct:license>
+          <xsl:value-of select="$licensestring"/>
+        </dct:license>
+      </xsl:for-each>
       <!-- xpath: gmd:dateStamp/gco:DateTime -->
 
       <xsl:call-template name="add-reference">
@@ -505,17 +512,18 @@
     </xsl:for-each> -->
     <!-- xpath: gmd:identificationInfo/*/gmd:resourceConstraints/??? -->
 
-    <xsl:for-each select="gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"> 
-   <xsl:variable name="licensestring" select="gco:CharacterString"/>  
-   <xsl:message>======= License: <xsl:value-of select="$licensestring"/> ==========</xsl:message>  
-    <dct:license>
-      <xsl:value-of select="$licensestring"/>
-    </dct:license>
-  </xsl:for-each>
 
 
     <xsl:for-each select="../../gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine">
-      <dcat:distribution rdf:resource="{gmd:CI_OnlineResource/gmd:linkage/gmd:URL}"/>
+      <dcat:distribution rdf:resource="{gmd:CI_OnlineResource/gmd:linkage/gmd:URL}">
+          <xsl:for-each select="gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"> 
+          <xsl:variable name="licensestring" select="gco:CharacterString"/>  
+          <xsl:message>======= License: <xsl:value-of select="$licensestring"/> ==========</xsl:message>  
+          <dct:license>
+          <xsl:value-of select="$licensestring"/>
+          </dct:license>
+          </xsl:for-each>
+      </dcat:distribution>
     </xsl:for-each>
     <!-- xpath: gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine/gmd:CI_OnlineResource -->
 
