@@ -53,7 +53,7 @@
   <!--
     Create reference block to metadata record and dataset to be added in dcat:Catalog usually.
   -->
-
+  <!-- FIME : $url comes from a global variable. -->
   <xsl:template match="gmd:MD_Metadata|*[@gco:isoType='gmd:MD_Metadata']" mode="record-reference">
     <!-- TODO : a metadata record may contains aggregate. In that case create one dataset per aggregate member. -->
     <dcat:dataset rdf:resource="{$resourcePrefix}/datasets/{iso19139:getResourceCode(.)}"/>
@@ -72,12 +72,13 @@
 
       xpath: //gmd:MD_Metadata|//*[@gco:isoType='gmd:MD_Metadata']
     -->
+<!--
     <dcat:CatalogRecord rdf:about="{$resourcePrefix}/records/{gmd:fileIdentifier/gco:CharacterString}">
-      <!-- Link to a dcat:Dataset or a rdf:Description for services and feature catalogue. -->
+      &lt;!&ndash; Link to a dcat:Dataset or a rdf:Description for services and feature catalogue. &ndash;&gt;
       <foaf:primaryTopic rdf:resource="{$resourcePrefix}/resources/{iso19139:getResourceCode(.)}"/>
 
-      <!-- Metadata change date.
-      "The date is encoded as a literal in "YYYY-MM-DD" form (ISO 8601 Date and Time Formats)." -->
+      &lt;!&ndash; Metadata change date.
+      "The date is encoded as a literal in "YYYY-MM-DD" form (ISO 8601 Date and Time Formats)." &ndash;&gt;
       <xsl:variable name="date" select="substring-before(gmd:dateStamp/gco:DateTime, 'T')"/>
       <dct:issued>
         <xsl:value-of select="$date"/>
@@ -85,20 +86,13 @@
       <dct:modified>
         <xsl:value-of select="$date"/>
       </dct:modified>
-      
-      <xsl:for-each select="gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"> 
-       <xsl:variable name="licensestring" select="gco:CharacterString"/>  
-       <xsl:message>======= Catalog Record License: <xsl:value-of select="$licensestring"/> ==========</xsl:message>  
-        <dct:license>
-          <xsl:value-of select="$licensestring"/>
-        </dct:license>
-      </xsl:for-each>
-      <!-- xpath: gmd:dateStamp/gco:DateTime -->
+      &lt;!&ndash; xpath: gmd:dateStamp/gco:DateTime &ndash;&gt;
 
       <xsl:call-template name="add-reference">
         <xsl:with-param name="uuid" select="gmd:fileIdentifier/gco:CharacterString"/>
       </xsl:call-template>
     </dcat:CatalogRecord>
+-->
 
     <xsl:apply-templates select="gmd:identificationInfo/*" mode="to-dcat"/>
 
@@ -150,7 +144,68 @@
     </xsl:for-each-group>
 
 
- 
+    <!-- Distribution
+      "Represents a specific available form of a dataset. Each dataset might be available in different
+      forms, these forms might represent different formats of the dataset, different endpoints,...
+      Examples of Distribution include a downloadable CSV file, an XLS file representing the dataset,
+      an RSS feed ..."
+
+      Download, WebService, Feed
+
+      xpath: //gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine/gmd:CI_OnlineResource
+    -->
+    <xsl:for-each-group
+      select="//gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine/gmd:CI_OnlineResource"
+      group-by="gmd:linkage/gmd:URL">
+      <dcat:Distribution rdf:about="{gmd:linkage/gmd:URL}">
+        <!--
+          "points to the location of a distribution. This can be a direct download link, a link
+          to an HTML page containing a link to the actual data, Feed, Web Service etc.
+          the semantic is determined by its domain (Distribution, Feed, WebService, Download)."
+        -->
+        <dcat:accessURL>
+          <xsl:value-of select="gmd:linkage/gmd:URL"/>
+        </dcat:accessURL>
+        <!-- xpath: gmd:linkage/gmd:URL -->
+
+        <xsl:if test="gmd:name/gco:CharacterString!=''">
+          <dct:title>
+            <xsl:value-of select=" gmd:name/gco:CharacterString"/>
+          </dct:title>
+        </xsl:if>
+        <!-- xpath: gmd:name/gco:CharacterString -->
+
+        <!-- "The size of a distribution.":N/A
+          <dcat:size></dcat:size>
+        -->
+
+        <xsl:if test="gmd:protocol/gco:CharacterString!=''">
+          <dct:format>
+            <!--
+              "the file format of the distribution."
+
+              "MIME type is used for values. A list of MIME types URLs can be found at IANA.
+              However ESRI Shape files have no specific MIME type (A Shape distribution is actually
+              a collection of files), currently this is still an open question?"
+
+              In our case, Shapefile will be zipped !
+
+              Mapping between protocol list and mime/type when needed
+            -->
+            <dct:IMT>
+              <rdf:value>
+                <xsl:value-of select="gmd:protocol/gco:CharacterString"/>
+              </rdf:value>
+              <rdfs:label>
+                <xsl:value-of select="gmd:protocol/gco:CharacterString"/>
+              </rdfs:label>
+            </dct:IMT>
+          </dct:format>
+        </xsl:if>
+        <!-- xpath: gmd:protocol/gco:CharacterString -->
+
+      </dcat:Distribution>
+    </xsl:for-each-group>
 
 
     <xsl:for-each-group
@@ -250,7 +305,7 @@
     </dct:title>
     <!-- xpath: gmd:identificationInfo/*/gmd:citation/*/gmd:title/gco:CharacterString -->
 
-    <!-- concatenate abstract and lineage to form description as dcat -> ckan mappings don't seem to include dataquality -->
+
     <dct:description>
       <xsl:value-of select="gmd:abstract/gco:CharacterString"/>
       <xsl:for-each
@@ -260,8 +315,6 @@
     </xsl:for-each>
     </dct:description>
     <!-- xpath: gmd:identificationInfo/*/gmd:abstract/gco:CharacterString -->
-    
-    
 
 
     <!-- "A keyword or tag describing the dataset."
@@ -345,38 +398,78 @@
     </xsl:for-each>
     <xsl:for-each
       select="gmd:citation/*/gmd:date/gmd:CI_Date[gmd:dateType/gmd:CI_DateTypeCode/@codeListValue='revision']">
-      <dct:modified>
+      <dct:updated>
         <xsl:value-of select="gmd:date/gco:Date|gmd:date/gco:DateTime"/>
-      </dct:modified>
+      </dct:updated>
     </xsl:for-each>
 
     <!-- "An entity responsible for making the dataset available" -->
-    <xsl:for-each select="gmd:pointOfContact/*/gmd:organisationName/gco:CharacterString[.!='']">
+<!--    <xsl:for-each select="gmd:pointOfContact/*/gmd:organisationName/gco:CharacterString[.!='']">
       <dct:publisher rdf:resource="{$resourcePrefix}/organizations/{encode-for-uri(.)}"/>
-    </xsl:for-each>
+    </xsl:for-each>-->
+
+    <xsl:for-each-group
+      select="gmd:pointOfContact/*[gmd:organisationName/gco:CharacterString!='']"
+      group-by="gmd:organisationName/gco:CharacterString">
+      <!-- Organization description.
+        Organization could be linked to a catalogue, a catalogue record.
+
+        xpath: //gmd:organisationName
+      -->
+      <dct:publisher>
+        <foaf:Organization>
+          <foaf:name>
+            <xsl:value-of select="current-grouping-key()"/>
+          </foaf:name>
+          <!-- xpath: gmd:organisationName/gco:CharacterString -->
+          <!--<xsl:for-each-group
+            select="//gmd:CI_ResponsibleParty[gmd:organisationName/gco:CharacterString=current-grouping-key()]"
+            group-by="gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString">
+            <foaf:member
+              rdf:resource="{$resourcePrefix}/persons/{encode-for-uri(iso19139:getContactId(.))}"/>
+          </xsl:for-each-group>-->
+
+          <xsl:for-each-group select="."
+                              group-by="gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString">
+            <!-- Organization member
+
+              xpath: //gmd:CI_ResponsibleParty-->
+
+            <foaf:Agent>
+              <xsl:if test="gmd:individualName/gco:CharacterString">
+                <foaf:name>
+                  <xsl:value-of select="gmd:individualName/gco:CharacterString"/>
+                </foaf:name>
+              </xsl:if>
+              <!-- xpath: gmd:individualName/gco:CharacterString -->
+              <xsl:if
+                test="gmd:contactInfo/gmd:CI_Contact/gmd:phone/gmd:CI_Telephone/gmd:voice/gco:CharacterString">
+                <foaf:phone>
+                  <xsl:value-of
+                    select="gmd:contactInfo/gmd:CI_Contact/gmd:phone/gmd:CI_Telephone/gmd:voice/gco:CharacterString"/>
+                </foaf:phone>
+              </xsl:if>
+              <!-- xpath: gmd:contactInfo/gmd:CI_Contact/gmd:phone/gmd:CI_Telephone/gmd:voice/gco:CharacterString -->
+              <xsl:if
+                test="gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString">
+                <foaf:mbox
+                  rdf:resource="mailto:{gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString}"/>
+              </xsl:if>
+              <!-- xpath: gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString -->
+            </foaf:Agent>
+          </xsl:for-each-group>
+        </foaf:Organization>
+      </dct:publisher>
+    </xsl:for-each-group>
     <!-- xpath: gmd:identificationInfo/*/gmd:pointOfContact -->
 
 
     <!-- "The frequency with which dataset is published." See placetime.com intervals. -->
     <xsl:for-each
       select="gmd:resourceMaintenance/gmd:MD_MaintenanceInformation/gmd:maintenanceAndUpdateFrequency/gmd:MD_MaintenanceFrequencyCode">
-      <xsl:variable name="updatefreq" select="@codeListValue"/>
-      <xsl:message>=== updatefrequency=<xsl:value-of select="$updatefreq"/></xsl:message>
-      <xsl:choose>
-      <xsl:when test="$updatefreq='notPlanned'">
-        <xsl:variable name="accrual" select="'irregular'"/>
-              <xsl:message>=== accrual=<xsl:value-of select="$accrual"/></xsl:message>
-
-        <dct:accrualPeriodicity>
-        <xsl:value-of select="$accrual"/>
-      </dct:accrualPeriodicity>
-      </xsl:when>
-      <xsl:otherwise>
       <dct:accrualPeriodicity>
-        <xsl:value-of select="$updatefreq"/>
+        <xsl:value-of select="@codeListValue"/>
       </dct:accrualPeriodicity>
-    </xsl:otherwise>
-    </xsl:choose>
     </xsl:for-each>
     <!-- xpath: gmd:identificationInfo/*/gmd:resourceMaintenance/gmd:MD_MaintenanceInformation/gmd:maintenanceAndUpdateFrequency/gmd:MD_MaintenanceFrequencyCode/@codeListValue -->
 
@@ -401,77 +494,27 @@
     </xsl:for-each>
     <!-- xpath: gmd:identificationInfo/*/gmd:language/gmd:LanguageCode/@codeListValue -->
 
-      <xsl:for-each select="gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString">
+
+    <!-- "The license under which the dataset is published and can be reused." -->
+<!--    <xsl:for-each select="gmd:resourceConstraints/gmd:MD_LegalConstraints/*/gmd:MD_RestrictionCode">
       <dct:license>
-            <xsl:text>http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/</xsl:text>
+        <xsl:value-of select="@codeListValue"/>
       </dct:license>
-   </xsl:for-each>
-
-
-    <xsl:for-each select="../../gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine">
-      <dcat:distribution rdf:resource="{gmd:CI_OnlineResource/gmd:linkage/gmd:URL}">
-          
-      </dcat:distribution>
     </xsl:for-each>
+    <xsl:for-each
+      select="gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString">
+      <dct:license>
+        <xsl:value-of select="."/>
+      </dct:license>
+    </xsl:for-each>-->
+    <!-- xpath: gmd:identificationInfo/*/gmd:resourceConstraints/??? -->
+
+
+    <!--<xsl:for-each select="../../gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine">
+      <dcat:distribution rdf:resource="{gmd:CI_OnlineResource/gmd:linkage/gmd:URL}"/>
+    </xsl:for-each>-->
+
     <!-- xpath: gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine/gmd:CI_OnlineResource -->
-
-       <!-- Distribution
-      "Represents a specific available form of a dataset. Each dataset might be available in different
-      forms, these forms might represent different formats of the dataset, different endpoints,...
-      Examples of Distribution include a downloadable CSV file, an XLS file representing the dataset,
-      an RSS feed ..."
-
-      Download, WebService, Feed
-
-      xpath: //gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine/gmd:CI_OnlineResource
-    -->
-
-
-    <!-- <xsl:for-each-group
-      select="../../gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine/gmd:CI_OnlineResource"
-      group-by="gmd:linkage/gmd:URL">
-      <dcat:Distribution rdf:about="{gmd:linkage/gmd:URL}">
-        <dcat:accessURL>
-          <xsl:value-of select="gmd:linkage/gmd:URL"/>
-        </dcat:accessURL>
-
-        <xsl:if test="gmd:name/gco:CharacterString!=''">
-          <dct:title>
-            <xsl:value-of select=" gmd:name/gco:CharacterString"/>
-          </dct:title>
-        </xsl:if>
-
-
-        <xsl:if test="gmd:protocol/gco:CharacterString!=''">
-          <dct:format>
-            <dct:IMT>
-              <rdf:value>
-                <xsl:value-of select="gmd:protocol/gco:CharacterString"/>
-              </rdf:value>
-              <rdfs:label>
-                <xsl:value-of select="gmd:protocol/gco:CharacterString"/>
-              </rdfs:label>
-            </dct:IMT>
-          </dct:format>
-        </xsl:if>
-
-        <xsl:for-each select="//gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"> 
-         <xsl:variable name="licensestring" select="//gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString"/>  
-         <xsl:message>======= Distribution License: <xsl:value-of select="$licensestring"/> ==========</xsl:message>  
-          <dct:license>
-            <xsl:value-of select="$licensestring"/>
-          </dct:license>
-        </xsl:for-each>
-
-      <xsl:variable name="date" select="substring-before(gmd:dateStamp/gco:DateTime, 'T')"/>
-      <dct:issued>
-        <xsl:value-of select="$date"/>
-      </dct:issued>
-      <dct:modified>
-        <xsl:value-of select="$date"/>
-      </dct:modified>
-      </dcat:Distribution>
-    </xsl:for-each-group> -->
 
 
     <!-- ISO19110 relation
@@ -527,20 +570,86 @@
 
 
     <!-- "describes the quality of data." -->
-    <!-- <xsl:for-each
+    <xsl:for-each
       select="../../gmd:dataQualityInfo/*/gmd:lineage/gmd:LI_Lineage/gmd:statement/gco:CharacterString">
-      <dcat:dataQuality> -->
+      <dcat:dataQuality>
         <!-- rdfs:literal -->
-        <!-- <xsl:value-of select="."/>
+        <xsl:value-of select="."/>
       </dcat:dataQuality>
-    </xsl:for-each> -->
+    </xsl:for-each>
     <!-- xpath: gmd:dataQualityInfo/*/gmd:lineage/gmd:LI_Lineage/gmd:statement/gco:CharacterString -->
 
 
     <!-- FIXME ?
       <void:dataDump></void:dataDump>-->
-  </xsl:template>
 
+    <xsl:variable name="restrictions" select="gmd:resourceConstraints" />
+
+    <xsl:for-each-group
+      select="../../gmd:distributionInfo/*/gmd:transferOptions/*/gmd:onLine/gmd:CI_OnlineResource"
+      group-by="gmd:linkage/gmd:URL">
+      <dcat:Distribution rdf:about="{gmd:linkage/gmd:URL}">
+        <!--
+          "points to the location of a distribution. This can be a direct download link, a link
+          to an HTML page containing a link to the actual data, Feed, Web Service etc.
+          the semantic is determined by its domain (Distribution, Feed, WebService, Download)."
+        -->
+        <dcat:accessURL>
+          <xsl:value-of select="gmd:linkage/gmd:URL"/>
+        </dcat:accessURL>
+        <!-- xpath: gmd:linkage/gmd:URL -->
+
+        <xsl:if test="gmd:name/gco:CharacterString!=''">
+          <dct:title>
+            <xsl:value-of select=" gmd:name/gco:CharacterString"/>
+          </dct:title>
+        </xsl:if>
+        <!-- xpath: gmd:name/gco:CharacterString -->
+
+        <!-- "The size of a distribution.":N/A
+          <dcat:size></dcat:size>
+        -->
+
+        <xsl:if test="gmd:protocol/gco:CharacterString!=''">
+          <dct:format>
+            <!--
+              "the file format of the distribution."
+
+              "MIME type is used for values. A list of MIME types URLs can be found at IANA.
+              However ESRI Shape files have no specific MIME type (A Shape distribution is actually
+              a collection of files), currently this is still an open question?"
+
+              In our case, Shapefile will be zipped !
+
+              Mapping between protocol list and mime/type when needed fdfd
+            -->
+            <dct:IMT>
+              <rdf:value>
+                <xsl:value-of select="gmd:protocol/gco:CharacterString"/>
+              </rdf:value>
+              <rdfs:label>
+                <xsl:value-of select="gmd:protocol/gco:CharacterString"/>
+              </rdfs:label>
+            </dct:IMT>
+          </dct:format>
+        </xsl:if>
+        <!-- xpath: gmd:protocol/gco:CharacterString -->
+
+        <!-- <xsl:for-each select="$restrictions/gmd:MD_LegalConstraints/*/gmd:MD_RestrictionCode">
+          <dct:license>
+            <xsl:value-of select="@codeListValue"/>
+          </dct:license>
+        </xsl:for-each> -->
+        <xsl:for-each
+          select="$restrictions/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString">
+          <dct:license>
+            <xsl:value-of select="."/>
+          </dct:license>
+        </xsl:for-each>
+      </dcat:Distribution>
+    </xsl:for-each-group>
+
+  </xsl:template>
 
 
   <!--
