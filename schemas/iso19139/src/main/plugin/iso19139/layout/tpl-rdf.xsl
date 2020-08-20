@@ -316,6 +316,16 @@
     </dct:description>
     <!-- xpath: gmd:identificationInfo/*/gmd:abstract/gco:CharacterString -->
 
+    <xsl:for-each select="gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"> 
+      <xsl:variable name="licensestring" select="gco:CharacterString"/>  
+      <xsl:message>======= License: <xsl:value-of select="$licensestring"/> ==========</xsl:message> 
+        <dct:rights> 
+        <dct:license>
+          <xsl:value-of select="$licensestring"/>
+        </dct:license>
+        </dct:rights>
+    </xsl:for-each>
+
 
     <!-- "A keyword or tag describing the dataset."
       Create dcat:keyword if no thesaurus name information available.
@@ -642,9 +652,11 @@
         </xsl:for-each> -->
         <xsl:for-each
           select="$restrictions/gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString">
+          <dct:rights>
           <dct:license>
             <xsl:value-of select="."/>
           </dct:license>
+        </dct:rights>
         </xsl:for-each>
       </dcat:Distribution>
     </xsl:for-each-group>
