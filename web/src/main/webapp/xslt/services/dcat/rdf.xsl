@@ -70,7 +70,7 @@
              xmlns:skos="http://www.w3.org/2004/02/skos/core#">
       <!-- Metadata element -->
 
-      <!--<xsl:call-template name="catalogue"/>-->
+      <xsl:call-template name="catalogue"/>
 
       <xsl:apply-templates mode="to-dcat" select="/root/*|/root/search/response/*"/>
 
