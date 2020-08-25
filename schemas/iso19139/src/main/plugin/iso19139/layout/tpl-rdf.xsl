@@ -72,7 +72,7 @@
 
       xpath: //gmd:MD_Metadata|//*[@gco:isoType='gmd:MD_Metadata']
     -->
-<!--
+
     <dcat:CatalogRecord rdf:about="{$resourcePrefix}/records/{gmd:fileIdentifier/gco:CharacterString}">
       &lt;!&ndash; Link to a dcat:Dataset or a rdf:Description for services and feature catalogue. &ndash;&gt;
       <foaf:primaryTopic rdf:resource="{$resourcePrefix}/resources/{iso19139:getResourceCode(.)}"/>
@@ -92,7 +92,7 @@
         <xsl:with-param name="uuid" select="gmd:fileIdentifier/gco:CharacterString"/>
       </xsl:call-template>
     </dcat:CatalogRecord>
--->
+
 
     <xsl:apply-templates select="gmd:identificationInfo/*" mode="to-dcat"/>
 
