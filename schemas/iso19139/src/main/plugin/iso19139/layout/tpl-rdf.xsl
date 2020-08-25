@@ -74,11 +74,10 @@
     -->
 
     <dcat:CatalogRecord rdf:about="{$resourcePrefix}/records/{gmd:fileIdentifier/gco:CharacterString}">
-      &lt;!&ndash; Link to a dcat:Dataset or a rdf:Description for services and feature catalogue. &ndash;&gt;
+
       <foaf:primaryTopic rdf:resource="{$resourcePrefix}/resources/{iso19139:getResourceCode(.)}"/>
 
-      &lt;!&ndash; Metadata change date.
-      "The date is encoded as a literal in "YYYY-MM-DD" form (ISO 8601 Date and Time Formats)." &ndash;&gt;
+
       <xsl:variable name="date" select="substring-before(gmd:dateStamp/gco:DateTime, 'T')"/>
       <dct:issued>
         <xsl:value-of select="$date"/>
@@ -86,7 +85,7 @@
       <dct:modified>
         <xsl:value-of select="$date"/>
       </dct:modified>
-      &lt;!&ndash; xpath: gmd:dateStamp/gco:DateTime &ndash;&gt;
+      
 
       <xsl:call-template name="add-reference">
         <xsl:with-param name="uuid" select="gmd:fileIdentifier/gco:CharacterString"/>
